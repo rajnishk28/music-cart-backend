@@ -1,9 +1,10 @@
 const router =require("express").Router();
-const {searchAndSortProducts} = require("../controllers/product.controller");
+const {searchAndSortProducts,getProductById} = require("../controllers/product.controller");
 
 
 
 router.get("/getall", searchAndSortProducts);
+router.get("/getone/:id", getProductById);
 
 
 
