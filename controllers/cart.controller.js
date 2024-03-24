@@ -31,7 +31,7 @@ const getAllCartItems = async (req, res) => {
         const userId = req.params.userId;
 
         const cartItems = await CartItem.find({ userId }).populate('productId');
-
+    //  console.log(cartItems);
         return res.status(200).json({ cartItems });
     } catch (err) {
         console.error(err);
