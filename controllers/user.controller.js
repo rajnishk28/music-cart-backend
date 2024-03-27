@@ -68,7 +68,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Check if the user provided both email and password
+        // Check if the user provided email and password
         if (!email || !password) {
             return res.status(400).json({
                 success: false,
@@ -76,15 +76,16 @@ const loginUser = async (req, res) => {
             });
         }
 
-        // Find the user by email
-        const user = await User.findOne({ email });
-        //if user it will return all field like password name
+        // Find the user by email or contactNumber
+        const user = await User.findOne({
+            $or: [{ email: email }, { contactNumber: email }] // Search by email or contactNumber
+        });
 
         // Check if the user exists
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message: "user not found",
+                message: "User not found",
             });
         }
 
@@ -93,7 +94,7 @@ const loginUser = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid  password",
+                message: "Invalid password",
             });
         }
 
@@ -102,14 +103,12 @@ const loginUser = async (req, res) => {
             {
                 userId: user._id,
                 email: user.email,
-
             },
             process.env.JWT_SECRET,
             {
                 expiresIn: "7d",
             }
         );
-
 
         res.status(200).json({
             success: true,
@@ -125,6 +124,8 @@ const loginUser = async (req, res) => {
         });
     }
 };
+
+
 
 //update user details controller here
 const updateUserDetails = async (req, res) => {
