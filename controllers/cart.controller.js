@@ -39,4 +39,16 @@ const getAllCartItems = async (req, res) => {
     }
 };
 
-module.exports = { addToCart, getAllCartItems };
+const cartItemCount = async (req, res) => {
+    try {
+        const userId = req.user;
+        const count = await CartItem.countDocuments({ userId });
+
+        return res.status(200).json({ count });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Error getting cart items' });
+    }
+};
+
+module.exports = { addToCart, getAllCartItems,cartItemCount };

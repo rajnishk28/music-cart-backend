@@ -5,6 +5,7 @@ const userRoutes =require("./routes/user.routes");
 const productRoutes = require("./routes/product.routes");
 const cartRoutes = require("./routes/cart.routes");
 const feedbackRoutes = require("./routes/feedback.routes");
+const checkOutRoutes = require("./routes/checkOut.routes");
 
 
 
@@ -15,6 +16,7 @@ app.use("/user",userRoutes);
 app.use("/product",productRoutes);
 app.use("/cart",cartRoutes);
 app.use("/feedback",feedbackRoutes);
+app.use("/checkout",checkOutRoutes);
 
 
 
