@@ -39,7 +39,7 @@ const getOneCheckout = async (req, res) => {
     const userId = req.user;
     const checkoutId = req.params.id; 
     try {
-        const checkout = await Checkout.findOne({ _id: checkoutId, userId: userId });
+        const checkout = await Checkout.findOne({ _id: checkoutId, userId: userId }).populate('items.productId', 'name price imageUrl');
         if (!checkout) {
             return res.status(404).json({ message: 'Checkout not found' });
         }
