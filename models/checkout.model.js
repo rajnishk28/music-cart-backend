@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Product = require("./product.model")
-const User =require("./user.model")
+const User = require("./user.model")
 
 const checkoutSchema = new mongoose.Schema({
     userId: { 
@@ -31,7 +31,7 @@ const checkoutSchema = new mongoose.Schema({
     },
     paymentMethod: { 
         type: String,
-        enum: ['credit_card', 'cash', 'paypal'],
+        enum: ['credit_card', 'cash', 'upi'],
         required: true 
     },
     status: { 
@@ -39,7 +39,15 @@ const checkoutSchema = new mongoose.Schema({
         enum: ['Pending', 'Processing', 'Shipped', 'Delivered'],
         default: 'Pending' 
     },
-   
+    razorpayOrderId: {
+        type: String,
+        required: false
+    },
+    paymentStatus: {
+        type: String,
+        enum: ['Pending', 'Paid', 'Failed'],
+        default: 'Pending'
+    }
 },{timestamps: true});
 
 // Create Checkout model
